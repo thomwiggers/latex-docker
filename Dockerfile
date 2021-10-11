@@ -10,5 +10,8 @@ RUN pacman -Syu --noconfirm \
         ghostscript \
         psutils \
         bash \
+        # latexindent dependencies
+        perl-yaml-tiny \
+        perl-file-homedir \
  && rm -rf /var/cache/pacman/pkg/*
 
