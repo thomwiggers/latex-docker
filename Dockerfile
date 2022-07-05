@@ -11,6 +11,7 @@ RUN pacman -Syu --noconfirm \
         ghostscript \
         git \
         psutils \
+        python \
         bash \
         # latexindent dependencies
         perl-yaml-tiny \
