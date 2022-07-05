@@ -18,4 +18,6 @@ RUN pacman -Syu --noconfirm \
         perl-file-homedir \
  && rm -rf /var/cache/pacman/pkg/* \
  && luaotfload-tool --update
+ 
+ ENV PATH /usr/bin/vendor_perl:/usr/bin/site_perl:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
