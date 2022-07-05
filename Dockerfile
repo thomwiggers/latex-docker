@@ -16,5 +16,6 @@ RUN pacman -Syu --noconfirm \
         # latexindent dependencies
         perl-yaml-tiny \
         perl-file-homedir \
- && rm -rf /var/cache/pacman/pkg/*
+ && rm -rf /var/cache/pacman/pkg/* \
+ && luaotfload-tool --update
 
