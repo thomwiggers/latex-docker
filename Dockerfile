@@ -9,6 +9,7 @@ RUN pacman -Syu --noconfirm \
         biber \
         t1utils \
         ghostscript \
+        git \
         psutils \
         bash \
         # latexindent dependencies
