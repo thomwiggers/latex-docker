@@ -13,6 +13,8 @@ RUN pacman -Syu --noconfirm \
         psutils \
         python \
         bash \
+        # https://bugs.archlinux.org/task/75275
+        perl-core \
         # latexindent dependencies
         perl-yaml-tiny \
         perl-file-homedir \
