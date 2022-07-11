@@ -14,7 +14,7 @@ RUN pacman -Syu --noconfirm \
         python \
         bash \
         # https://bugs.archlinux.org/task/75275
-        perl-core \
+        perl-clone \
         # latexindent dependencies
         perl-yaml-tiny \
         perl-file-homedir \
