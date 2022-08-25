@@ -12,6 +12,7 @@ RUN pacman -Syu --noconfirm \
         git \
         psutils \
         python \
+        python-pygments \
         bash \
         # https://bugs.archlinux.org/task/75275
         perl-clone \
