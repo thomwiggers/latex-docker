@@ -10,6 +10,7 @@ RUN pacman -Syu --noconfirm \
         t1utils \
         ghostscript \
         git \
+        minted \
         psutils \
         python \
         python-pygments \
