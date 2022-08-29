@@ -13,13 +13,14 @@ RUN pacman -Syu --noconfirm \
         minted \
         psutils \
         python \
-        python-pygments \
         bash \
         # https://bugs.archlinux.org/task/75275
         perl-clone \
         # latexindent dependencies
         perl-yaml-tiny \
         perl-file-homedir \
+        # https://bugs.archlinux.org/task/75724
+        which \
  && rm -rf /var/cache/pacman/pkg/* \
  && luaotfload-tool --update
  
