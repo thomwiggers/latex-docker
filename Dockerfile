@@ -14,6 +14,9 @@ RUN pacman -Syu --noconfirm \
         minted \
         psutils \
         python \
+        poetry \
+        python-numpy \
+        python-matplotlib \
         bash \
         # https://bugs.archlinux.org/task/75275
         perl-clone \
@@ -24,6 +27,6 @@ RUN pacman -Syu --noconfirm \
         which \
  && rm -rf /var/cache/pacman/pkg/* \
  && luaotfload-tool --update
- 
+
  ENV PATH /usr/bin/vendor_perl:/usr/bin/site_perl:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
