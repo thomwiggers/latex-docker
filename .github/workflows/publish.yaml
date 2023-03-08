@@ -49,3 +49,5 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      # Make sure workflow never expires due to inactivity
+      - uses: gautamkrishnar/keepalive-workflow@v1
