@@ -1,0 +1,16 @@
+FROM alpine:latest
+
+RUN apk add --no-cache \
+    texlive \
+    texlive-luatex \
+    texmf-dist-fontsextra \
+    texmf-dist-most \
+    biber \
+    python3 \
+    ghostscript \
+    py3-pygments \
+    poetry \
+    py3-matplotlib \
+    py3-numpy \
+    git \
+    make

@@ -3,7 +3,7 @@ FROM archlinux:latest
 RUN pacman -Syu --noconfirm \
  && pacman -S --noconfirm \
         make \
-        texlive-most \
+        texlive-meta \
         texlive-lang \
         texlive-bibtexextra \
         biber \
