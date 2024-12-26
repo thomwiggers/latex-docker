@@ -5,21 +5,19 @@ RUN pacman -Syu --noconfirm \
         make \
         texlive-meta \
         texlive-lang \
+        texlive-latexextra \
         texlive-bibtexextra \
         biber \
         t1utils \
         ghostscript \
         git \
         git-lfs \
-        minted \
         psutils \
         python \
         poetry \
         python-numpy \
         python-matplotlib \
         bash \
-        # https://bugs.archlinux.org/task/75275
-        perl-clone \
         # latexindent dependencies
         perl-yaml-tiny \
         perl-file-homedir \
