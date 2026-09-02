@@ -1,4 +1,4 @@
-FROM archlinux:base-20260628.0.549485
+FROM archlinux:base-20260830.0.582275
 
 RUN pacman -Syu --noconfirm \
  && pacman -S --noconfirm \
