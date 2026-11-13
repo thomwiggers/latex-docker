@@ -8,8 +8,12 @@ name: Create and publish a Docker image
 on:
   push:
     branches: ['main']
+  # Pull requests build and smoke-test the images without publishing them.
+  pull_request:
   schedule:
     - cron: "28 12 * * 3,6"
+  # Started by the automerge job after a Dependabot merge.
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
@@ -38,6 +42,7 @@ jobs:
         uses: docker/setup-buildx-action@v4
 
       - name: Log in to the Container registry
+        if: github.event_name != 'pull_request'
         uses: docker/login-action@v4
         with:
           registry: ${{ env.REGISTRY }}
@@ -50,7 +55,20 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      - name: Build and push Docker image
+      - name: Build image for testing
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: Dockerfile.${{ matrix.distribution }}
+          load: true
+          tags: latex-docker:test
+
+      - name: Smoke test
+        run: docker run --rm -v "$PWD/tests:/tests:ro" latex-docker:test sh /tests/smoke.sh
+
+      # Reuses the layers of the test build above.
+      - name: Push Docker image
+        if: github.event_name != 'pull_request'
         uses: docker/build-push-action@v7
         with:
           context: .
@@ -58,3 +76,28 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+  # Merge Dependabot PRs once both images build and pass the smoke test. This
+  # job is skipped when either fails, so a broken update stays open for a human.
+  automerge:
+    name: Merge Dependabot PR
+    needs: build-and-push-image
+    if: github.event_name == 'pull_request' && github.event.pull_request.user.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Squash-merge
+        run: gh pr merge "$PR" --squash --match-head-commit "$SHA"
+        env:
+          PR: ${{ github.event.pull_request.number }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+      # Merges made with GITHUB_TOKEN do not trigger push workflows, so start
+      # the publish run by hand.
+      - name: Start publish run on main
+        run: gh workflow run publish.yaml --ref main
